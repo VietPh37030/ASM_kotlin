@@ -2,6 +2,7 @@ package com.example.asm_kotlin.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -26,6 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -34,6 +39,7 @@ import com.example.asm_kotlin.R
 
 @Composable
 fun SignUpScreen(navController: NavHostController) {
+    val passwordVisible = remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -191,7 +197,7 @@ fun SignUpScreen(navController: NavHostController) {
                             value = passwordState.value,
                             onValueChange = { passwordState.value = it },
                             modifier = Modifier
-                                .padding(bottom = ss(4), end = ss(14))
+                                .padding(bottom = 4.dp, end = 14.dp)
                                 .fillMaxWidth(),
                             colors = TextFieldDefaults.colors(
                                 focusedContainerColor = Color.White,
@@ -199,7 +205,18 @@ fun SignUpScreen(navController: NavHostController) {
                                 unfocusedIndicatorColor = Color("#E0E0E0".toColorInt()),
                                 focusedIndicatorColor = Color.Gray
                             ),
-                            placeholder = { Text(text = "") }
+                            placeholder = { Text(text = "") },
+                            visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+                            trailingIcon = {
+                                val image = if (passwordVisible.value)
+                                    painterResource(R.drawable.eye)
+                                else
+                                    painterResource(R.drawable.eye_slash_icon)
+
+                                IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
+                                    Icon(painter = image, contentDescription = null)
+                                }
+                            }
                         )
 
                         // Confirm Password
@@ -214,7 +231,7 @@ fun SignUpScreen(navController: NavHostController) {
                             value = confirmPasswordState.value,
                             onValueChange = { confirmPasswordState.value = it },
                             modifier = Modifier
-                                .padding(bottom = ss(4), end = ss(14))
+                                .padding(bottom = 4.dp, end = 14.dp)
                                 .fillMaxWidth(),
                             colors = TextFieldDefaults.colors(
                                 focusedContainerColor = Color.White,
@@ -222,7 +239,18 @@ fun SignUpScreen(navController: NavHostController) {
                                 unfocusedIndicatorColor = Color("#E0E0E0".toColorInt()),
                                 focusedIndicatorColor = Color.Gray
                             ),
-                            placeholder = { Text(text = "") }
+                            placeholder = { Text(text = "") },
+                            visualTransformation = if (passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation(),
+                            trailingIcon = {
+                                val image = if (passwordVisible.value)
+                                    painterResource(R.drawable.eye)
+                                else
+                                    painterResource(R.drawable.eye_slash_icon)
+
+                                IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
+                                    Icon(painter = image, contentDescription = null)
+                                }
+                            }
                         )
                         ///SIGN UP
                         Column(
@@ -231,7 +259,8 @@ fun SignUpScreen(navController: NavHostController) {
                                 .padding(
                                     bottom = ss(36),
                                     start = ss(30),
-                                    end = ss(30)
+                                    end = ss(30),
+                                    top = ss(10)
                                 )
                                 .fillMaxWidth()
                                 .background(
@@ -250,6 +279,35 @@ fun SignUpScreen(navController: NavHostController) {
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                             )
+                        }
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier
+                                .padding(
+                                    bottom = 36.dp,
+                                    start = 30.dp,
+                                    end = 30.dp
+                                )
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(bottom = 41.dp, start = 25.dp)
+                            ) {
+                                Text(
+                                    text = "Already have account? ",
+                                    color = Color(0xFF303030),
+                                    fontSize = 15.sp
+                                )
+                                Text(
+                                    text = "SIGN IN",
+                                    color = Color.Black,
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.clickable {
+                                        navController.navigate("login_screen")
+                                    }
+                                )
+                            }
                         }
                     }
                 }
