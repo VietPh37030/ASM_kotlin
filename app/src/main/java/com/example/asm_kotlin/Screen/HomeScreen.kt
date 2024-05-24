@@ -10,6 +10,7 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -34,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.asm_kotlin.R
 
 class HomeScreen : ComponentActivity() {
@@ -372,7 +375,7 @@ fun HomeScreenContent() {
 }
 
 @Composable
-fun ProductList() {
+fun ProductList(navController: NavController? = null) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -380,11 +383,275 @@ fun ProductList() {
             .padding(bottom = 15.dp, start = 20.dp, end = 20.dp)
             .fillMaxWidth()
     ) {
-        Box {
-            Image(painter = painterResource(id = R.drawable.den),
+        Column ( modifier = Modifier.padding(top = 10.dp, start = 10.dp), // Thêm padding và điều chỉnh vị trí
+            verticalArrangement = Arrangement.Center)
+        {
+
+        Box(
+            modifier = Modifier
+                .width(157.dp)
+                .fillMaxHeight()
+                .padding(end = 10.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.den),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .width(157.dp)
+                    .height(200.dp) .clip(RoundedCornerShape(8.dp)) // Áp dụng radius cho ảnh
+            )
+            /// lớp bọc cái bag
+            Box(modifier = Modifier.padding(start = 110.dp)) {
+                Column(
+                    modifier = Modifier
+                        .padding(top = 160.dp)
+                        .width(30.dp)
+                        .height(30.dp)
+                        .background(
+                            color = Color(0x665F5F5F),
+                            shape = RoundedCornerShape(bottomStart = 6.dp)
+                        ),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.bag),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .height(15.dp)
+                            .width(16.dp)
+                    )
+                }
+            }
+
+            /// close lớp bọc cái bag
+            Column(
+                modifier = Modifier.padding(top = 205.dp), // Thêm padding và điều chỉnh vị trí
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Black Simple Lamp",
+                    color = Color.Black,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W400,
+                    modifier = Modifier.padding(bottom = 5.dp)
                 )
+                Text(
+                    text = "\$ 12.00",
+                    color = Color.Black,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W700,
+                    modifier = Modifier.padding(bottom = 5.dp)
+                )
+            }
+        }
+
+        }
+        Column ( modifier = Modifier.padding(top = 10.dp, start = 10.dp), // Thêm padding và điều chỉnh vị trí
+            verticalArrangement = Arrangement.Center){
+            Box(
+                modifier = Modifier
+                    .width(157.dp)
+                    .fillMaxHeight()
+                    .padding(end = 10.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.table1),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .width(157.dp)
+                        .height(200.dp) .clip(RoundedCornerShape(8.dp)) // Áp dụng radius cho ảnh
+                )
+                /// lớp bọc cái bag
+                Box(modifier = Modifier.padding(start = 110.dp)) {
+                    Column(
+                        modifier = Modifier
+                            .padding(top = 160.dp)
+                            .width(30.dp)
+                            .height(30.dp)
+                            .background(
+                                color = Color(0x665F5F5F),
+                                shape = RoundedCornerShape(bottomStart = 6.dp)
+                            ),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.bag),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .height(15.dp)
+                                .width(16.dp)
+                        )
+                    }
+                }
+
+                /// close lớp bọc cái bag
+                Column(
+                    modifier = Modifier.padding(top = 205.dp), // Thêm padding và điều chỉnh vị trí
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Minimal Stand",
+                        color = Color.Black,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W400,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+                    Text(
+                        text = "\$ 25.00",
+                        color = Color.Black,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W700,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+                }
+            }
+
+        }
+    }
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(bottom = 15.dp, start = 20.dp, end = 20.dp)
+            .fillMaxWidth()
+    ) {
+        Column ( modifier = Modifier.padding(top = 10.dp, start = 10.dp), // Thêm padding và điều chỉnh vị trí
+            verticalArrangement = Arrangement.Center){
+            Box(
+                modifier = Modifier
+                    .width(157.dp)
+                    .fillMaxHeight()
+                    .padding(end = 10.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.chairone),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .width(157.dp)
+                        .height(200.dp) .clip(RoundedCornerShape(8.dp)) // Áp dụng radius cho ảnh
+                )
+                /// lớp bọc cái bag
+                Box(modifier = Modifier.padding(start = 110.dp)) {
+                    Column(
+                        modifier = Modifier
+                            .padding(top = 160.dp)
+                            .width(30.dp)
+                            .height(30.dp)
+                            .background(
+                                color = Color(0x665F5F5F),
+                                shape = RoundedCornerShape(bottomStart = 6.dp)
+                            ),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.bag),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .height(15.dp)
+                                .width(16.dp)
+                        )
+                    }
+                }
+
+                /// close lớp bọc cái bag
+                Column(
+                    modifier = Modifier.padding(top = 205.dp), // Thêm padding và điều chỉnh vị trí
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Coffee Chair",
+                        color = Color.Black,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W400,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+                    Text(
+                        text = "\$ 20.00",
+                        color = Color.Black,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W700,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+                }
+            }
+
+        }
+        Column ( modifier = Modifier.padding(top = 10.dp, start = 10.dp), // Thêm padding và điều chỉnh vị trí
+            verticalArrangement = Arrangement.Center){
+            Box(
+                modifier = Modifier
+                    .width(157.dp)
+                    .fillMaxHeight()
+                    .padding(end = 10.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.deskone),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .width(157.dp)
+                        .height(200.dp) .clip(RoundedCornerShape(8.dp)) // Áp dụng radius cho ảnh
+                )
+                /// lớp bọc cái bag
+                Box(modifier = Modifier.padding(start = 110.dp)) {
+                    Column(
+                        modifier = Modifier
+                            .padding(top = 160.dp)
+                            .width(30.dp)
+                            .height(30.dp)
+                            .background(
+                                color = Color(0x665F5F5F),
+                                shape = RoundedCornerShape(bottomStart = 6.dp)
+                            ),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.bag),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .height(15.dp)
+                                .width(16.dp)
+                        )
+                    }
+                }
+
+                /// close lớp bọc cái bag
+                Column(
+                    modifier = Modifier.padding(top = 205.dp), // Thêm padding và điều chỉnh vị trí
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Simple Desk",
+                        color = Color.Black,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W400,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+                    Text(
+                        text = "\$ 50.00",
+                        color = Color.Black,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.W700,
+                        modifier = Modifier.padding(bottom = 5.dp)
+                    )
+                }
+            }
+
         }
     }
 }
