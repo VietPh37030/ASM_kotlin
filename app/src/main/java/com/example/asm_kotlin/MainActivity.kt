@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.asm_kotlin.BottomBar.ScreenNavigation
 
 import com.example.asm_kotlin.Screen.HomeScreen
 import com.example.asm_kotlin.ui.LoginScreen
@@ -18,7 +19,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApp()
+//            MyApp()
+            ScreenNavigation()
         }
     }
 }

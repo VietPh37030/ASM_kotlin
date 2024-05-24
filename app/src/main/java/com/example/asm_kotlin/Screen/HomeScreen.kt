@@ -39,13 +39,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.asm_kotlin.R
 
-class HomeScreen : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            PreviewHomeScreen()
-        }
-    }
+@Composable
+fun HomeScreen() {
+    PreviewHomeScreen()
+
 }
 
 @Preview(showBackground = true)
