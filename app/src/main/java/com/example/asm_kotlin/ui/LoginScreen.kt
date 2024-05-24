@@ -1,20 +1,16 @@
 package com.example.asm_kotlin.ui
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -26,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -33,12 +30,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavHostController
+import com.example.asm_kotlin.MainScreen.MainScreens
 import com.example.asm_kotlin.R
+
+
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
     // State to track whether password should be visible or not
     val passwordVisible = remember { mutableStateOf(false) }
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -236,11 +237,24 @@ fun LoginScreen(navController: NavHostController) {
                                     )
                                 .padding(vertical = ss(18))
                         ) {
-                            Text(text = "Login",
-                                color = Color(0xFFFFFFFF),
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold,
-                               )
+                            Button(
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color(0xFF232323),
+
+                                    ),
+                                onClick = {  navigateToMainScreen(context) },
+                                modifier = Modifier
+                                    .padding(horizontal = 5.dp)
+                                    .fillMaxWidth(),
+                            ){
+                                Text(
+                                    text = "Log in",
+                                    color = Color.White,
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    modifier = Modifier.padding(vertical = 8.dp)
+                                )
+                            }
                         }
                         Column( horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
@@ -254,7 +268,9 @@ fun LoginScreen(navController: NavHostController) {
                                 color = Color(0xFF303030),
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(bottom = ss(41), start = ss(90))
+                                modifier = Modifier.padding(bottom = ss(41), start = ss(90)).clickable{
+                                    navController.navigate("signup_screen")
+                                }
                             )
                         }
                     }
@@ -269,3 +285,9 @@ fun ss(value: Int): Dp {
     return value.dp
 }
 
+fun navigateToMainScreen(context: Context) {
+    // Tạo Intent để chuyển sang MainScreen
+    val intent = Intent(context, MainScreens::class.java)
+    // Khởi chạy Intent
+    context.startActivity(intent)
+}
